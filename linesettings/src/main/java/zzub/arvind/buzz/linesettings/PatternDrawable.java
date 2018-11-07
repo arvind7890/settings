@@ -8,7 +8,7 @@ import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
+//import android.util.Log;
 
 
 public class PatternDrawable extends Drawable {
@@ -26,7 +26,7 @@ public class PatternDrawable extends Drawable {
 
 
     public PatternDrawable(int lineColor, int lineAlpha, int lineWidth, float dashLength, float gapLength) {
-        Log.e("CONSTRUCT","PatternDrawable(int lineColor, int lineAlpha, int lineWidth, float dashLength, float gapLength)");
+        //Log.e("CONSTRUCT","PatternDrawable(int lineColor, int lineAlpha, int lineWidth, float dashLength, float gapLength)");
         this.lineColor = lineColor;
         this.lineAlpha = lineAlpha;
         this.lineWidth = lineWidth;
@@ -41,7 +41,7 @@ public class PatternDrawable extends Drawable {
         this.dashLength=30f;
         this.gapLength=10f;
 
-        Log.e("CONSTRUCT","PatternDrawable");
+        //Log.e("CONSTRUCT","PatternDrawable");
         initPaint();
         setLineColor(Color.BLUE);
     }

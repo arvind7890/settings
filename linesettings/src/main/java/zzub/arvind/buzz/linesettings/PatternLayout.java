@@ -6,7 +6,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
-import android.util.Log;
+
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -76,7 +76,7 @@ public class PatternLayout extends ViewGroup  {
             }
             cadg.setPd(pd);
             cadg.invalidate();
-            Log.e("ONPROGRESS","progress changed");
+           // Log.e("ONPROGRESS","progress changed");
 
         }
 
@@ -94,7 +94,7 @@ public class PatternLayout extends ViewGroup  {
         super(context);
         mcontext=context;
         setWillNotDraw(false);
-        Log.e("EVENT"," PatternLayout(Context context, AttributeSet attrs)");
+       // Log.e("EVENT"," PatternLayout(Context context, AttributeSet attrs)");
         init();
     }
 
@@ -103,20 +103,20 @@ public class PatternLayout extends ViewGroup  {
         mcontext=context;
         mattrs=attrs;
         setWillNotDraw(false);
-        Log.e("EVENT"," PatternLayout(Context context, AttributeSet attrs)");
+        //Log.e("EVENT"," PatternLayout(Context context, AttributeSet attrs)");
         init();
 
     }
 
     public PatternLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, 0);
-        Log.e("EVENT"," PatternLayout(Context context, AttributeSet attrs, int defStyleAttr)");
+       // Log.e("EVENT"," PatternLayout(Context context, AttributeSet attrs, int defStyleAttr)");
         init();
     }
 
     public PatternLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, 0, 0);
-        Log.e("EVENT"," PatternLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes)");
+        //Log.e("EVENT"," PatternLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes)");
         init();
     }
     public  void setPd(PatternDrawable pd) {
@@ -175,12 +175,12 @@ public class PatternLayout extends ViewGroup  {
             }
         };
         if(hierarchyChangeListener==null){
-            Log.e("Hierarchy"," hierarchyChangeListener is null");
+            //Log.e("Hierarchy"," hierarchyChangeListener is null");
             hierarchyChangeListener=new OnHierarchyChangeListener(){
 
                 @Override
                 public void onChildViewAdded(View parent, View child) {
-                    Log.e("Hierarchy"," View tag=" +child.getTag() +" added");
+                   // Log.e("Hierarchy"," View tag=" +child.getTag() +" added");
 
                     String tag=index+"";
                     index++;
@@ -272,7 +272,7 @@ public class PatternLayout extends ViewGroup  {
 
                 @Override
                 public void onChildViewRemoved(View parent, View child) {
-                    Log.e("Hierarchy"," View tag=" +child.getTag() +"removed");
+                    //Log.e("Hierarchy"," View tag=" +child.getTag() +"removed");
                 }
             };
         }
@@ -283,7 +283,7 @@ public class PatternLayout extends ViewGroup  {
 
     @Override
     protected void onAttachedToWindow() {
-        Log.e("EVENT","onAttachedToWindow()");
+       // Log.e("EVENT","onAttachedToWindow()");
         super.onAttachedToWindow();
     }
 
@@ -314,8 +314,8 @@ public class PatternLayout extends ViewGroup  {
                 int totalHorizontalMargin = leftMargin + rightMargin;
                 int totalVerticalMargin = topMargin + bottomMargin;
 
-                Log.e("PATTERNLAYOUT", " onMeasure i=" + i + " leftMargin=" + leftMargin + " rightMargin=" + rightMargin + " topMargin=" + topMargin
-                        + " bottomMargin" + bottomMargin);
+                //Log.e("PATTERNLAYOUT", " onMeasure i=" + i + " leftMargin=" + leftMargin + " rightMargin=" + rightMargin + " topMargin=" + topMargin
+                 //       + " bottomMargin" + bottomMargin);
 
                 switch (widthMode) {
                     case MeasureSpec.EXACTLY:
@@ -346,7 +346,7 @@ public class PatternLayout extends ViewGroup  {
             //child.setTag(String.valueOf(i));
 
         }
-        Log.e("PATTERNLAYOUT"," onMeasure setMeasuredDimension("+ totalWidth+","+ totalHeight+")");
+        //Log.e("PATTERNLAYOUT"," onMeasure setMeasuredDimension("+ totalWidth+","+ totalHeight+")");
         setMeasuredDimension(totalWidth,totalHeight);
 
     }

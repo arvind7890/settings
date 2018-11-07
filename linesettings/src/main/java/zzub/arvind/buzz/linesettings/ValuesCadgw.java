@@ -5,7 +5,7 @@ import android.view.ViewGroup;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
+//import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 
@@ -59,7 +59,7 @@ public class ValuesCadgw extends ViewGroup {
         setOnPatternChangeListener(new OnPatternChangeListener() {
             @Override
             public void onChangePatternParams(PatternDrawable pdnew) {
-                Log.e("PATTERNDRAWABLE",pdnew.toString());
+               //Log.e("PATTERNDRAWABLE",pdnew.toString());
                 String strColor = String.format("#%06X", 0xFFFFFF & pdnew.getLineColor());
                 colorBox.setText(strColor);
                 alphaBox.setText(pdnew.getLineAlpha() + "");
@@ -71,7 +71,7 @@ public class ValuesCadgw extends ViewGroup {
 
         if (colorBox == null) {
             colorBox = (BoxedText) getChildAt(0);
-            Log.e("COLORBOX","NULL");
+           // Log.e("COLORBOX","NULL");
         }
         if (alphaBox == null) {
             alphaBox = (BoxedText) getChildAt(1);
@@ -94,14 +94,14 @@ public class ValuesCadgw extends ViewGroup {
     }
     @Override
     protected void onAttachedToWindow() {
-        Log.e("EVENTC","onAttachedToWindow()");
+        //Log.e("EVENTC","onAttachedToWindow()");
         super.onAttachedToWindow();
         init();
     }
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         //super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        Log.e("VALUESCADGW"," onMeasure("+ widthMeasureSpec+","+ heightMeasureSpec+")");
+        //Log.e("VALUESCADGW"," onMeasure("+ widthMeasureSpec+","+ heightMeasureSpec+")");
 
         int widthMode=MeasureSpec.getMode(widthMeasureSpec);
         int widthSize=MeasureSpec.getSize(widthMeasureSpec);
@@ -128,8 +128,8 @@ public class ValuesCadgw extends ViewGroup {
             int totalHorizontalMargin=leftMargin+rightMargin;
             int totalVerticalMargin=topMargin+bottomMargin;
 
-            Log.e("PATTERNLAYOUT"," onMeasure i="+i+" leftMargin="+leftMargin+" rightMargin="+rightMargin+" topMargin="+topMargin
-                    +" bottomMargin"+bottomMargin);
+            //Log.e("PATTERNLAYOUT"," onMeasure i="+i+" leftMargin="+leftMargin+" rightMargin="+rightMargin+" topMargin="+topMargin
+            //        +" bottomMargin"+bottomMargin);
 
             switch (widthMode){
                 case MeasureSpec.EXACTLY:
@@ -157,12 +157,12 @@ public class ValuesCadgw extends ViewGroup {
             measureChildWithMargins(child, widthMeasureSpec, 0, heightMeasureSpec, 0);
 
             child.setTag(String.valueOf(i));
-            Log.e("EVENTM","i="+i+" childWidth="+child.getMeasuredWidth()+" totalWidth="+totalWidth+" layoutWidth="+layoutWidth);
-            Log.e("EVENTCh","i="+i+" childWidth="+child.getMeasuredWidth()+" totalHeight="+totalHeight);
+            //Log.e("EVENTM","i="+i+" childWidth="+child.getMeasuredWidth()+" totalWidth="+totalWidth+" layoutWidth="+layoutWidth);
+            //Log.e("EVENTCh","i="+i+" childWidth="+child.getMeasuredWidth()+" totalHeight="+totalHeight);
         }
         hspace=(layoutWidth-totalWidth)/(count-1);
         hspace--;
-        Log.e("EVENTM","hspace="+hspace);
+        //Log.e("EVENTM","hspace="+hspace);
         setMeasuredDimension(layoutWidth,totalHeight);
     }
 
@@ -186,8 +186,8 @@ public class ValuesCadgw extends ViewGroup {
             final View child = getChildAt(i);
             if(child.getVisibility()==GONE)return;
             final LayoutParams lp = (LayoutParams) child.getLayoutParams();
-            Log.e("Margins","i="+i+" leftMargin="+lp.leftMargin+" rightMargin="+lp.rightMargin+" topMargin="+lp.topMargin
-                    +" bottomMargin"+lp.bottomMargin);
+            //Log.e("Margins","i="+i+" leftMargin="+lp.leftMargin+" rightMargin="+lp.rightMargin+" topMargin="+lp.topMargin
+              //      +" bottomMargin"+lp.bottomMargin);
 
             childWidth=child.getMeasuredWidth();
             childheight=child.getMeasuredHeight();
@@ -198,8 +198,8 @@ public class ValuesCadgw extends ViewGroup {
 
             child.layout(childLeft,childTop,childRight,childBottom);
             prevWidth+=child.getMeasuredWidth()+hspace+lp.leftMargin+lp.rightMargin;
-            Log.e("EVENTCh","i="+i+" prevWidth="+prevWidth);
-            Log.e("EVENTCh","i="+i+" childLeft="+childLeft+" childTop="+childTop+" childRight="+childRight+" childBottom="+childBottom);
+            //Log.e("EVENTCh","i="+i+" prevWidth="+prevWidth);
+          //  Log.e("EVENTCh","i="+i+" childLeft="+childLeft+" childTop="+childTop+" childRight="+childRight+" childBottom="+childBottom);
 
 
         }
