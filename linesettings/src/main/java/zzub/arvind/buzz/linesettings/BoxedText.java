@@ -41,7 +41,7 @@ public class BoxedText extends View {
 
     public void log(String TAG, String method){
 
-        Log.e(TAG," calmethod "+method);
+       // Log.e(TAG," calmethod "+method);
     }
 
     public BoxedText(Context context) {
@@ -78,7 +78,7 @@ public class BoxedText extends View {
         int textSize=getMaxSize(maxHeight);
         mTextPaint.setTextSize(textSize);
         textWidth=(int)mTextPaint.measureText(textMain);
-        Log.e("FIT WIDTH","textWidth="+textWidth);
+        //Log.e("FIT WIDTH","textWidth="+textWidth);
 
         Paint.FontMetrics fm=mTextPaint.getFontMetrics();
         startX=5;
@@ -86,12 +86,12 @@ public class BoxedText extends View {
         boxTop=(int)(startY+fm.top);
         boxBottom=(int)(startY+fm.bottom);
         textHeight=(int)(fm.bottom - fm.top + fm.leading);
-        Log.e("FMETRIC","top="+fm.top);
-        Log.e("FMETRIC","bottom="+fm.bottom);
-        Log.e("FMETRIC","boxTop="+boxTop);
-        Log.e("FMETRIC","boxBottom="+boxBottom);
-        Log.e("FMETRIC","startX="+startX);
-        Log.e("FMETRIC","startY="+startY);
+        //Log.e("FMETRIC","top="+fm.top);
+        //Log.e("FMETRIC","bottom="+fm.bottom);
+        //Log.e("FMETRIC","boxTop="+boxTop);
+        //Log.e("FMETRIC","boxBottom="+boxBottom);
+        //Log.e("FMETRIC","startX="+startX);
+        //Log.e("FMETRIC","startY="+startY);
     }
     private void init() {
 
@@ -134,14 +134,14 @@ public class BoxedText extends View {
         tp.setTextSize(tsize);
         Paint.FontMetrics fm=tp.getFontMetrics();
         int bh=(int)(fm.bottom-fm.top);
-        Log.e("GETMAXSZ","size="+tsize+"/bh="+bh+"/maxSize="+maxSize);
+        //Log.e("GETMAXSZ","size="+tsize+"/bh="+bh+"/maxSize="+maxSize);
         for(tsize=maxSize;bh>maxSize;tsize--){
             tp.setAntiAlias(true);
             tp.setTextSize(tsize);
             tp.setColor(Color.BLACK);
             fm=tp.getFontMetrics();
             bh=(int)(fm.bottom-fm.top);
-            Log.e("FOR","size="+tsize+"/bh="+bh+"/maxSize="+maxSize);
+          //  Log.e("FOR","size="+tsize+"/bh="+bh+"/maxSize="+maxSize);
         }
 
         return tsize--;
@@ -186,7 +186,7 @@ public class BoxedText extends View {
         int w=getWidth();
         canvas.drawText(textMain, (w-textWidth)/2, startY, mTextPaint); // x=0, y=0
         canvas.drawRect(0, boxTop,w, boxBottom,mRectPaint);
-        Log.e("EVENTCh box draw"," bleft=0"+"boxTop="+boxTop+" width="+getWidth()+" bbottom="+boxBottom);
+        //Log.e("EVENTCh box draw"," bleft=0"+"boxTop="+boxTop+" width="+getWidth()+" bbottom="+boxBottom);
 
 
     }
