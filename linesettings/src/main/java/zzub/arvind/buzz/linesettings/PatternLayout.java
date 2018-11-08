@@ -1,5 +1,6 @@
 package zzub.arvind.buzz.linesettings;
 
+import android.util.Log;
 import android.view.ViewGroup;
 
 import android.content.Context;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -47,49 +49,8 @@ public class PatternLayout extends ViewGroup  {
 
     public Button proceedButton;
     public OnProceedListener onProceedListener;
-    public SeekBar.OnSeekBarChangeListener onSeekBarChangeListener=new SeekBar.OnSeekBarChangeListener() {
-        @Override
-        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-            int color;
-            String tag=(String)seekBar.getTag();
-            int seek=Integer.parseInt(tag);
-            switch (seek){
-                case 5:
-                    lineHSV=new float[]{progress,1,1};
-                    color=Color.HSVToColor(pd.getLineAlpha(),lineHSV);
-                    pd.setLineColor(color);
-                    break;
-                case 7:
-                    pd.setLineAlpha(progress);
-                    break;
-                case 9:
-                    pd.setDashLength(progress);
-                    break;
-                case 11:
-                    pd.setGapLength(progress);
-                    break;
-                case 13:
-                    pd.setLineWidth(progress);
-                    break;
-                default:
-                    break;
-            }
-            cadg.setPd(pd);
-            cadg.invalidate();
-           // Log.e("ONPROGRESS","progress changed");
+    public SeekBar.OnSeekBarChangeListener onSeekBarChangeListener;
 
-        }
-
-        @Override
-        public void onStartTrackingTouch(SeekBar seekBar) {
-
-        }
-
-        @Override
-        public void onStopTrackingTouch(SeekBar seekBar) {
-
-        }
-    };
     public PatternLayout(Context context) {
         super(context);
         mcontext=context;
@@ -119,13 +80,21 @@ public class PatternLayout extends ViewGroup  {
         //Log.e("EVENT"," PatternLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes)");
         init();
     }
-    public  void setPd(PatternDrawable pd) {
-        PatternLayout.pd = pd;
-        cadg.setPd(pd);
+    public  void setPd(PatternDrawable pd1) {
+        PatternLayout.pd = new PatternDrawable(pd1);
+        cadg.setPd(pd1);
+        //hierarchyChangeListener=null;
+        //onSeekBarChangeListener=null;
         init();
     }
     private void init(){
-        if(pd==null)pd=new PatternDrawable();
+        if(PatternLayout.pd==null){
+            Log.e("PL","pd is null");
+            pd=new PatternDrawable();
+            Log.e("PL","new pd created pd="+pd);
+        }else{
+            Log.e("PL","pd is not null pd="+pd);
+        }
         selectListener=new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -174,6 +143,51 @@ public class PatternLayout extends ViewGroup  {
                 }
             }
         };
+        onSeekBarChangeListener=new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                int color;
+                String tag=(String)seekBar.getTag();
+                int seek=Integer.parseInt(tag);
+                switch (seek){
+                    case 5:
+                        lineHSV=new float[]{progress,1,1};
+                        color=Color.HSVToColor(pd.getLineAlpha(),lineHSV);
+                        pd.setLineColor(color);
+                        break;
+                    case 7:
+                        pd.setLineAlpha(progress);
+                        break;
+                    case 9:
+                        pd.setDashLength(progress);
+                        break;
+                    case 11:
+                        pd.setGapLength(progress);
+                        break;
+                    case 13:
+                        pd.setLineWidth(progress);
+                        break;
+                    default:
+                        break;
+                }
+                //initui();
+                cadg.setPd(PatternLayout.pd);
+
+              //Log.e("ONPROGRESS","progress changed");
+                pd.invalidateSelf();
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        };
         if(hierarchyChangeListener==null){
             //Log.e("Hierarchy"," hierarchyChangeListener is null");
             hierarchyChangeListener=new OnHierarchyChangeListener(){
@@ -194,9 +208,7 @@ public class PatternLayout extends ViewGroup  {
                             titleChild.setTypeface(Typeface.DEFAULT_BOLD);
                             break;
                         case 1:
-                            topChild= child;
-                            lineHSV=new float[]{pd.getHue(),1,1};
-                            topChild.setBackground(pd);
+                            topChild= (ImageView)child;
                             break;
                         case 2:
                             selectColor=(CheckBox)child;
@@ -213,45 +225,30 @@ public class PatternLayout extends ViewGroup  {
                             break;
                         case 5:
                             colorChild=(SeekBar)child;
-                            colorChild.setMax(360);
-                            colorChild.setProgress((int)pd.getHue());
-                            colorChild.setOnSeekBarChangeListener(onSeekBarChangeListener);
                             break;
                         case 6:
                             alphaLabel=(TextView)child;
                             break;
                         case 7:
                             alphaChild=(SeekBar)child;
-                            alphaChild.setMax(255);
-                            alphaChild.setProgress(pd.getLineAlpha());
-                            alphaChild.setOnSeekBarChangeListener(onSeekBarChangeListener);
                             break;
                         case 8:
                             dashLabel=(TextView)child;
                             break;
                         case 9:
                             dashChild=(SeekBar)child;
-                            dashChild.setMax(50);
-                            dashChild.setProgress((int)pd.getDashLength());
-                            dashChild.setOnSeekBarChangeListener(onSeekBarChangeListener);
                             break;
                         case 10:
                             gapLabel=(TextView)child;
                             break;
                         case 11:
                             gapChild=(SeekBar)child;
-                            gapChild.setMax(50);
-                            gapChild.setProgress((int)pd.getGapLength());
-                            gapChild.setOnSeekBarChangeListener(onSeekBarChangeListener);
                             break;
                         case 12:
                             widthLabel=(TextView)child;
                             break;
                         case 13:
                             widthChild=(SeekBar)child;
-                            widthChild.setMax(90);
-                            widthChild.setProgress(pd.getLineWidth());
-                            widthChild.setOnSeekBarChangeListener(onSeekBarChangeListener);
                             break;
                         case 14:
                             proceedButton=(Button)child;
@@ -268,6 +265,7 @@ public class PatternLayout extends ViewGroup  {
                             break;
 
                     }
+                    //initui();
                 }
 
                 @Override
@@ -278,13 +276,38 @@ public class PatternLayout extends ViewGroup  {
         }
         setOnHierarchyChangeListener(hierarchyChangeListener);
 
+        //initui();
+    }
+    private void initui(){
+        lineHSV=new float[]{PatternLayout.pd.getHue(),1,1};
+        topChild.setBackground(PatternLayout.pd);
+
+        colorChild.setMax(360);
+        colorChild.setProgress((int)PatternLayout.pd.getHue());
+        colorChild.setOnSeekBarChangeListener(onSeekBarChangeListener);
+
+        alphaChild.setMax(255);
+        alphaChild.setProgress(PatternLayout.pd.getLineAlpha());
+        alphaChild.setOnSeekBarChangeListener(onSeekBarChangeListener);
+
+        dashChild.setMax(50);
+        dashChild.setProgress((int)PatternLayout.pd.getDashLength());
+        dashChild.setOnSeekBarChangeListener(onSeekBarChangeListener);
+
+        gapChild.setMax(50);
+        gapChild.setProgress((int)PatternLayout.pd.getGapLength());
+        gapChild.setOnSeekBarChangeListener(onSeekBarChangeListener);
+
+        widthChild.setMax(90);
+        widthChild.setProgress(PatternLayout.pd.getLineWidth());
+        widthChild.setOnSeekBarChangeListener(onSeekBarChangeListener);
 
     }
-
     @Override
     protected void onAttachedToWindow() {
        // Log.e("EVENT","onAttachedToWindow()");
         super.onAttachedToWindow();
+        initui();
     }
 
     @Override

@@ -56,6 +56,8 @@ public class SettingControl extends LinearLayout implements PatternLayout.OnProc
         onProceedButtonListener.onProceedButtonClick(view,pd);
     }
     public void setPatternDrawable(PatternDrawable patternDrawable){
-            pl.setPd(patternDrawable);
+
+        pl.setPd(patternDrawable);
+        //pl.setPd(patternDrawable);
     }
 }

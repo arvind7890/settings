@@ -1,5 +1,6 @@
 package zzub.arvind.buzz.linesettings;
 
+import android.util.Log;
 import android.view.ViewGroup;
 
 
@@ -206,10 +207,11 @@ public class ValuesCadgw extends ViewGroup {
     }
 
     public void setPd(PatternDrawable pd1) {
-        pd = pd1;
+        //Log.e("CADG","setting pd to pd="+pd1);
+        ValuesCadgw.pd = new PatternDrawable(pd1);
         if(onPatternChangeListener!=null)
             onPatternChangeListener.onChangePatternParams(pd);
-        pd.invalidateSelf();
+        //ValuesCadgw.pd.invalidateSelf();
         //invalidate();
 
     }
